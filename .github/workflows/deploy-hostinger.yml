@@ -25,8 +25,9 @@ jobs:
           password: ${{ secrets.HOSTINGER_PASS }}
           port: ${{ secrets.HOSTINGER_PORT }}
           protocol: ${{ secrets.HOSTINGER_PROTOCOL || 'ftp' }}
-          # Para Hostinger com conta FTP presa ao diretório do site, "/" costuma ser a raiz correta.
-          server-dir: /
+          # Defina HOSTINGER_REMOTE_DIR para o webroot real do domínio
+          # (ex.: /public_html ou /domains/einsteinhub.co/public_html).
+          server-dir: ${{ format('{0}/', secrets.HOSTINGER_REMOTE_DIR) }}
           local-dir: ./
           exclude: |
             **/.git*
