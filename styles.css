@@ -1,0 +1,252 @@
+:root {
+  --text: #ffffff;
+  --surface: rgba(0, 0, 0, 0.35);
+  --surface-border: rgba(255, 255, 255, 0.25);
+  --mx: 0px;
+  --my: 0px;
+  --fx: 0px;
+  --fy: 0px;
+  --ox: 0px;
+  --oy: 0px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+  background: #000;
+}
+
+.corner-logo {
+  position: fixed;
+  left: clamp(10px, 2.2vw, 28px);
+  top: clamp(10px, 2.4vh, 28px);
+  width: clamp(88px, 12vw, 140px);
+  height: auto;
+  z-index: 4;
+  pointer-events: none;
+  user-select: none;
+}
+
+.video-stack {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.veo-mask {
+  display: none;
+}
+
+.bg-video {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.bg-video-fill {
+  width: 116vw;
+  height: 116vh;
+  margin-left: -8vw;
+  margin-top: -8vh;
+  object-fit: cover;
+  filter: blur(16px) saturate(1.1) brightness(0.75);
+  transform: translate3d(var(--fx), var(--fy), 0) scale(1.1);
+}
+
+.bg-video-main {
+  width: 100vw;
+  height: 100vh;
+  object-fit: contain;
+  transform: translate3d(var(--mx), var(--my), 0) scale(0.96);
+}
+
+body.portrait-video .bg-video-main {
+  inset: auto;
+  left: 50%;
+  top: 50%;
+  width: 100vh;
+  height: 100vw;
+  object-fit: cover;
+  transform: translate3d(calc(-50% + var(--mx)), calc(-50% + var(--my)), 0) rotate(90deg) scale(1.06);
+}
+
+body.portrait-video .bg-video-fill {
+  inset: auto;
+  left: 50%;
+  top: 50%;
+  width: 140vh;
+  height: 140vw;
+  margin: 0;
+  transform: translate3d(calc(-50% + var(--fx)), calc(-50% + var(--fy)), 0) rotate(90deg) scale(1.18);
+}
+
+.hub-scene {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.orbit-layer {
+  position: absolute;
+  inset: 0;
+  transform: translate3d(var(--ox), var(--oy), 0);
+}
+
+.hub-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(1.4rem, 3.1vw, 2.1rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #f5d676;
+  background: linear-gradient(
+    135deg,
+    #fff8da 0%,
+    #f9dd8a 22%,
+    #e8ba52 44%,
+    #b77b1f 70%,
+    #ffefbb 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+  text-shadow:
+    0 2px 30px rgba(255, 214, 120, 0.5),
+    0 0 14px rgba(242, 181, 58, 0.38),
+    0 0 3px rgba(255, 245, 210, 0.55);
+}
+
+.orbit-item {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max-content;
+  height: max-content;
+  transform-origin: 0 0;
+  animation: orbit var(--speed) linear infinite;
+  animation-delay: var(--delay);
+  pointer-events: none;
+}
+
+.orbit-card {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: auto;
+  text-decoration: none;
+  border: 1px solid rgba(196, 216, 255, 0.42);
+  border-radius: 22px;
+  padding: 8px 12px;
+  color: #f2f7ff;
+  background: linear-gradient(
+    160deg,
+    rgba(24, 28, 54, 0.6) 0%,
+    rgba(10, 15, 35, 0.56) 100%
+  );
+  box-shadow:
+    0 12px 30px rgba(12, 20, 45, 0.45),
+    inset 0 0 16px rgba(175, 217, 255, 0.15);
+  backdrop-filter: blur(4px);
+  transition:
+    background 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    backdrop-filter 220ms ease,
+    color 220ms ease;
+}
+
+.orbit-card--link {
+  cursor: pointer;
+}
+
+.orbit-card h3 {
+  margin: 0;
+  font-size: clamp(0.86rem, 1.35vw, 1.08rem);
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  max-width: 13ch;
+  white-space: nowrap;
+  color: #f6e7c1;
+  text-shadow:
+    0 1px 10px rgba(246, 211, 140, 0.28),
+    0 0 2px rgba(255, 241, 205, 0.36);
+}
+
+.orbit-card:hover,
+.orbit-card.is-active {
+  border-color: rgba(255, 226, 133, 0.58);
+  color: rgba(255, 248, 218, 0.98);
+  background: linear-gradient(
+    160deg,
+    rgba(255, 234, 138, 0.18) 0%,
+    rgba(255, 218, 102, 0.12) 100%
+  );
+  box-shadow:
+    0 10px 30px rgba(255, 222, 120, 0.22),
+    inset 0 0 22px rgba(255, 236, 170, 0.24);
+  backdrop-filter: blur(14px) saturate(1.18);
+}
+
+@keyframes orbit {
+  0% {
+    transform: rotate(var(--angle)) translateX(var(--radius)) rotate(calc(var(--angle) * -1));
+  }
+  100% {
+    transform: rotate(calc(var(--angle) + 360deg)) translateX(var(--radius)) rotate(calc((var(--angle) + 360deg) * -1));
+  }
+}
+
+@media (max-width: 768px) {
+  .orbit-card {
+    padding: 10px;
+  }
+
+  .hub-core {
+    top: 49%;
+  }
+}
+
+@media (min-width: 769px) {
+  .bg-video-fill {
+    display: none;
+  }
+
+  .bg-video-main {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    transform: translate3d(var(--mx), var(--my), 0) scale(1.08);
+  }
+
+  .veo-mask {
+    display: block;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 170px;
+    height: 92px;
+    z-index: 1;
+    pointer-events: none;
+    backdrop-filter: blur(10px) saturate(1.06);
+    background:
+      radial-gradient(120% 95% at 100% 100%, rgba(2, 7, 22, 0.9) 0%, rgba(2, 7, 22, 0.62) 48%, rgba(2, 7, 22, 0) 100%),
+      linear-gradient(315deg, rgba(4, 10, 28, 0.68) 0%, rgba(4, 10, 28, 0.18) 78%, rgba(4, 10, 28, 0) 100%);
+  }
+}

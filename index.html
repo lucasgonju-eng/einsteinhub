@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EinsteinHub Motion Background</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <img class="corner-logo" src="./logo-colegio-einstein.png" alt="Logo Colégio Einstein" />
+
+  <div class="video-stack" aria-hidden="true">
+    <video
+      id="bgVideoFill"
+      class="bg-video bg-video-fill"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+    >
+      <source src="./centro_einsteinhub_scrub.mp4" type="video/mp4" />
+      <source src="./centro_einsteinhub.mp4" type="video/mp4" />
+    </video>
+
+    <video
+      id="bgVideoMain"
+      class="bg-video bg-video-main"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      aria-label="Vídeo de fundo"
+    >
+      <source src="./centro_einsteinhub_scrub.mp4" type="video/mp4" />
+      <source src="./centro_einsteinhub.mp4" type="video/mp4" />
+      Seu navegador não suporta vídeo em HTML5.
+    </video>
+  </div>
+  <div class="veo-mask" aria-hidden="true"></div>
+
+  <main class="hub-scene">
+    <div id="orbitLayer" class="orbit-layer"></div>
+    <div class="hub-core">EinsteinHub</div>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
