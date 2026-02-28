@@ -25,7 +25,8 @@ jobs:
           password: ${{ secrets.HOSTINGER_PASS }}
           port: ${{ secrets.HOSTINGER_PORT }}
           protocol: ${{ secrets.HOSTINGER_PROTOCOL || 'ftp' }}
-          server-dir: ${{ format('{0}/', secrets.HOSTINGER_REMOTE_DIR) }}
+          # Para Hostinger com conta FTP presa ao diretório do site, "/" costuma ser a raiz correta.
+          server-dir: /
           local-dir: ./
           exclude: |
             **/.git*
@@ -33,3 +34,4 @@ jobs:
             **/.github/**
             **/node_modules/**
             **/.DS_Store
+            **/.well-known/**
