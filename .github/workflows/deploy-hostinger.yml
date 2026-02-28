@@ -17,7 +17,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Upload files to Hostinger FTP
+      - name: Upload files to Hostinger FTP (root)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.HOSTINGER_HOST }}
@@ -25,7 +25,24 @@ jobs:
           password: ${{ secrets.HOSTINGER_PASS }}
           port: ${{ secrets.HOSTINGER_PORT }}
           protocol: ${{ secrets.HOSTINGER_PROTOCOL || 'ftp' }}
-          # Webroot confirmado pelos prints do hPanel.
+          server-dir: /
+          local-dir: ./
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/node_modules/**
+            **/.DS_Store
+            **/.well-known/**
+
+      - name: Upload files to Hostinger FTP (/public_html)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.HOSTINGER_HOST }}
+          username: ${{ secrets.HOSTINGER_USER }}
+          password: ${{ secrets.HOSTINGER_PASS }}
+          port: ${{ secrets.HOSTINGER_PORT }}
+          protocol: ${{ secrets.HOSTINGER_PROTOCOL || 'ftp' }}
           server-dir: /public_html/
           local-dir: ./
           exclude: |
